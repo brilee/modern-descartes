@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Page{% endblock %}
+
+
+{% block content %}
+{% if error %}
+	<p>Please submit a search term</p>
+{% endif %}
+
+<p>HTTP method was {{request}}</p>
+<p>keys are {% for key in keys %}{{key}}-{{keys.key}}, {% endfor %}</p>
+
+
+<form method="POST" action="">
+{% csrf_token %}
+
+<p>Select search mode:</p>
+<input type=radio name="mode" value="AND">AND
+<input type=radio name="mode" value="OR">OR
+
+<hr />
+
+<input type="button" onclick="SetAllCheckBoxes('myForm', 'myCheckbox', true);" value="I like them all!">
+&nbsp;&nbsp;
+<input type="button" onclick="SetAllCheckBoxes('myForm', 'myCheckbox', false);" value="I don't like any of them!">
+
+
+<hr />
+
+<p>Select your topics:</p>
+
+{% for topic in all_topics %}
+<label for="{{topic.name}}">
+<input id="{{topic.name}}" type=checkbox name="{{topic.name}}" />
+{{topic.name}}
+</label>
+<br />
+{% endfor %}
+<input type=submit value="Search">
+</form>
+
+{% endblock %}
+

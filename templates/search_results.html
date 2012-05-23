@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} Search results {% endblock %}
+
+
+{% block content %}
+<p> You searched for {% for topic in requested_topics %}{{topic.name}}, {% endfor %}</p>
+
+
+<ul>
+{% for result in all_results %}
+<li>{{result}}</li>
+{% endfor %}
+</ul>
+
+{% endblock %}
