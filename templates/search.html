@@ -26,12 +26,15 @@ function SetAllCheckBoxes(FormName, FieldName, CheckValue)
 {% block content %}
 <hr />
 
-<div id="search_results_meta"><p>Search terms were {% for key in query %}{{key}}, {% endfor %}</p>
+<div id="search_results_meta">
+<p>Search terms were {% for key in query %}{{key}}, {% endfor %}</p>
 <p>Search mode was {{mode}}</p>
-
+<p>Search years are {% for year in year_list %}{{year}}, {% endfor %}</p>
+<p>Sources include {% for source in source_list %}{{source}}, {% endfor %}</p>
 <hr />
 
 {% if errors %}
+<div id="errors">
 <ul>
 	{% for error in errors %}
 	<li>{{error}}</li>
@@ -39,14 +42,14 @@ function SetAllCheckBoxes(FormName, FieldName, CheckValue)
 </ul>
 {% endif %}
 </div>
+</div>
 
 
 <div id="search_results">
 <h3>Results:</h3>
 <ul>
 {% for result in results %}
-	<li>
-	{{result}} - 
+	<li> {{result}} - 
 	{% for topic in result.topics.all %}
 		{% if topic.name in query %} <span class="highlight">{{topic.name}}</span>,
 		{% else %} {{topic.name}},
@@ -61,25 +64,28 @@ function SetAllCheckBoxes(FormName, FieldName, CheckValue)
 
 <form method="GET" action="" name="ProblemSearch">
 <div id="search">
-	<div id="search_type">
+	<div id="search_top">
 		<p>Select search mode:</p>
 		<input type=radio name="mode" value="OR" checked="True">OR
 		<input type=radio name="mode" value="AND">AND
-		
-		<hr />
+		<input type=submit value="Search That Shit, Yo" id="search_button">
 	</div>
 	<div id="search_options1">
 		
 		<p>Select your topics:</p>
-		<input type="button" onclick="SetAllCheckBoxes('ProblemSearch', 'q', true);" value="Select all">
-		<input type="button" onclick="SetAllCheckBoxes('ProblemSearch', 'q', false);" value="Deselect all">
+		<input type="button" onclick="SetAllCheckBoxes('ProblemSearch', 'q', true);" value="Select all topics">
+		<input type="button" onclick="SetAllCheckBoxes('ProblemSearch', 'q', false);" value="Deselect all topics">
 		
 		<ul>
 		{% for subfield in all_subfields %}
 			<li> <h3>{{subfield.name}}</h3>
 				{% for topic in subfield.topic_set.all %}	
 				<label for="{{topic.name}}">
+				{% if topic.name in query %}
+				<input id="{{topic.name}}" type=checkbox name="q" value="{{topic.name}}" checked="checked"/>
+				{% else %}
 				<input id="{{topic.name}}" type=checkbox name="q" value="{{topic.name}}"/>
+				{% endif %}
 				{{topic.name}}
 				</label>
 				<br />
@@ -87,34 +93,39 @@ function SetAllCheckBoxes(FormName, FieldName, CheckValue)
 			</li>
 		{% endfor %}
 		</ul>
-		<input type=submit value="Search">
 	</div>
 	
 	<div id="search_options2">
-		<p>Select problem sources:</p>
-		<ul>
-		{% for source in all_sources %}
-			<li>
-				<label for="{{source.name}}">
-				<input id="{{source.name}}" type=checkbox name="s" value="{{source.name}}" checked="checked"/>{{source.name}}
-				</label>
-			</li>
-		{% endfor %}
-		</ul>
-		
 		<p>Select years:</p>
-		<input type="button" onclick="SetAllCheckBoxes('ProblemSearch', 'y', true);" value="Select all">
-		<input type="button" onclick="SetAllCheckBoxes('ProblemSearch', 'y', false);" value="Deselect all">
-	
-		<ul>
+		<input type="button" onclick="SetAllCheckBoxes('ProblemSearch', 'y', true);" value="Select all years">
+		<input type="button" onclick="SetAllCheckBoxes('ProblemSearch', 'y', false);" value="Deselect all years">
+		<br /><br />
 		{% for year in all_years %}
-			<li>
-				<label for="{{year}}">
-				<input id="{{year}}" type=checkbox name="y" value="{{year}}" checked="checked" /> {{year}}
-				</label>
-			</li>
+		<label for="{{year}}">
+		{% if not year_list %}
+		<input id="{{year}}" type=checkbox name="y" value="{{year}}" checked="checked" />
+		{% elif year in year_list %}
+		<input id="{{year}}" type=checkbox name="y" value="{{year}}" checked="checked" />
+		{% else %}
+		<input id="{{year}}" type=checkbox name="y" value="{{year}}"/>
+		{% endif %}
+		{{year}}
+		</label><br />
 		{% endfor %}
-		</ul>
+
+		<p>Select problem sources:</p>
+		{% for source in all_sources %}
+		<label for="{{source.name}}">
+		{% if not source_list %}
+		<input id="{{source.name}}" type=checkbox name="s" value="{{source.name}}" checked="checked"/>
+		{% elif source.name in source_list %}
+		<input id="{{source.name}}" type=checkbox name="s" value="{{source.name}}" checked="checked"/>
+		{% else %}
+		<input id="{{source.name}}" type=checkbox name="s" value="{{source.name}}"/>
+		{% endif %}
+		{{source.name}}
+		</label><br />
+		{% endfor %}
 	
 	</div>
 </div>
