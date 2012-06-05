@@ -1,44 +1,126 @@
 {% extends 'base.html' %}
+{% block scripts %}
+<!--
+function SetAllCheckBoxes(FormName, FieldName, CheckValue)
+{
+	if(!document.forms[FormName])
+		return;
+	var objCheckBoxes = document.forms[FormName].elements[FieldName];
+	if(!objCheckBoxes)
+		return;
+	var countCheckBoxes = objCheckBoxes.length;
+	if(!countCheckBoxes)
+		objCheckBoxes.checked = CheckValue;
+	else
+		// set the check value for all check boxes
+		for(var i = 0; i < countCheckBoxes; i++)
+			objCheckBoxes[i].checked = CheckValue;
+}
+// -->
+{% endblock %}
+
 
 {% block title %}Search Page{% endblock %}
 
 
 {% block content %}
-{% if error %}
-	<p>Please submit a search term</p>
+<hr />
+
+<div id="search_results_meta"><p>Search terms were {% for key in query %}{{key}}, {% endfor %}</p>
+<p>Search mode was {{mode}}</p>
+
+<hr />
+
+{% if errors %}
+<ul>
+	{% for error in errors %}
+	<li>{{error}}</li>
+	{% endfor %}
+</ul>
 {% endif %}
-
-<p>HTTP method was {{request}}</p>
-<p>keys are {% for key in keys %}{{key}}-{{keys.key}}, {% endfor %}</p>
+</div>
 
 
-<form method="POST" action="">
-{% csrf_token %}
-
-<p>Select search mode:</p>
-<input type=radio name="mode" value="AND">AND
-<input type=radio name="mode" value="OR">OR
-
-<hr />
-
-<input type="button" onclick="SetAllCheckBoxes('myForm', 'myCheckbox', true);" value="I like them all!">
-&nbsp;&nbsp;
-<input type="button" onclick="SetAllCheckBoxes('myForm', 'myCheckbox', false);" value="I don't like any of them!">
-
-
-<hr />
-
-<p>Select your topics:</p>
-
-{% for topic in all_topics %}
-<label for="{{topic.name}}">
-<input id="{{topic.name}}" type=checkbox name="{{topic.name}}" />
-{{topic.name}}
-</label>
-<br />
+<div id="search_results">
+<h3>Results:</h3>
+<ul>
+{% for result in results %}
+	<li>
+	{{result}} - 
+	{% for topic in result.topics.all %}
+		{% if topic.name in query %} <span class="highlight">{{topic.name}}</span>,
+		{% else %} {{topic.name}},
+		{% endif%}		
+	{% endfor %}
+	</li>
 {% endfor %}
-<input type=submit value="Search">
+</ul>
+</div>
+
+<hr />
+
+<form method="GET" action="" name="ProblemSearch">
+<div id="search">
+	<div id="search_type">
+		<p>Select search mode:</p>
+		<input type=radio name="mode" value="OR" checked="True">OR
+		<input type=radio name="mode" value="AND">AND
+		
+		<hr />
+	</div>
+	<div id="search_options1">
+		
+		<p>Select your topics:</p>
+		<input type="button" onclick="SetAllCheckBoxes('ProblemSearch', 'q', true);" value="Select all">
+		<input type="button" onclick="SetAllCheckBoxes('ProblemSearch', 'q', false);" value="Deselect all">
+		
+		<ul>
+		{% for subfield in all_subfields %}
+			<li> <h3>{{subfield.name}}</h3>
+				{% for topic in subfield.topic_set.all %}	
+				<label for="{{topic.name}}">
+				<input id="{{topic.name}}" type=checkbox name="q" value="{{topic.name}}"/>
+				{{topic.name}}
+				</label>
+				<br />
+				{% endfor %}
+			</li>
+		{% endfor %}
+		</ul>
+		<input type=submit value="Search">
+	</div>
+	
+	<div id="search_options2">
+		<p>Select problem sources:</p>
+		<ul>
+		{% for source in all_sources %}
+			<li>
+				<label for="{{source.name}}">
+				<input id="{{source.name}}" type=checkbox name="s" value="{{source.name}}" checked="checked"/>{{source.name}}
+				</label>
+			</li>
+		{% endfor %}
+		</ul>
+		
+		<p>Select years:</p>
+		<input type="button" onclick="SetAllCheckBoxes('ProblemSearch', 'y', true);" value="Select all">
+		<input type="button" onclick="SetAllCheckBoxes('ProblemSearch', 'y', false);" value="Deselect all">
+	
+		<ul>
+		{% for year in all_years %}
+			<li>
+				<label for="{{year}}">
+				<input id="{{year}}" type=checkbox name="y" value="{{year}}" checked="checked" /> {{year}}
+				</label>
+			</li>
+		{% endfor %}
+		</ul>
+	
+	</div>
+</div>
+
 </form>
+
 
 {% endblock %}
 
