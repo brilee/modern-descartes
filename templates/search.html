@@ -58,6 +58,17 @@ function SetAllCheckBoxes(FormName, FieldName, CheckValue)
 	</li>
 {% endfor %}
 </ul>
+<ul>
+{% for result in filtered_results %}
+	<li> {{result}} - 
+	{% for topic in result.topics.all %}
+		{% if topic.name in query %} <span class="highlight">{{topic.name}}</span>,
+		{% else %} {{topic.name}},
+		{% endif%}		
+	{% endfor %}
+	</li>
+{% endfor %}
+</ul>
 </div>
 
 <hr />

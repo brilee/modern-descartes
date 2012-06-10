@@ -41,11 +41,9 @@ def search(request):
             for topic in query:
                 query_results = query_results & Question.objects.filter(topics__name = topic)
         
-        prefiltered_results = Question.objects.filter(
-            year__in=year_list).filter(
-            competition__name__in=source_list)
-        results = prefiltered_results & query_results
-        results = results.distinct()
+        years= Question.objects.filter(year__in=year_list)
+        sources = Question.objects.filter(competition__name__in=source_list)
+        results = (query_results & years & sources).distinct()
         
         if not results:
             errors.append('Search resulted in no hits')
