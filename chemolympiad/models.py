@@ -25,7 +25,7 @@ class Subfield(models.Model):
     name = models.CharField(max_length=30)
 
     def __unicode__(self):
-        return self.name
+        return unicode(self.name)
 
 class Topic(models.Model):
     name  = models.CharField(max_length= 40, help_text=
@@ -39,7 +39,7 @@ class Topic(models.Model):
     subfield = models.ManyToManyField('Subfield')
     
     def __unicode__(self):
-        return self.name
+        return unicode(self.name)
 
     class Meta:
         ordering = ['name']

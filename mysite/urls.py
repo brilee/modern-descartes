@@ -5,17 +5,21 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    # Admin pages
     url(r'^admin/', include(admin.site.urls)),
-)
 
-urlpatterns += patterns('chemolympiad.views',
-    (r'^$', 'home'),
-    (r'^search/$', 'search'),
-)
-
-
-# [1:] slices off leading / in URL
-urlpatterns += patterns('',
+    # Static content
     (r'^%s(?P<path>.*)$' % STATIC_URL[1:], 'django.views.static.serve',
         {'document_root': STATIC_ROOT}),
+
+    # Search app
+    (r'^search/', include('chemolympiad.urls')),
+
+    # Login / logout
+    (r'^login/$', 'django.contrib.auth.views.login'),                
+    (r'^logout/$', 'homepage.views.logout_page'),
+
+    # Landing page
+    (r'^$', 'homepage.views.home'),
+
 )

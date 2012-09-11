@@ -25,10 +25,11 @@ function SetAllCheckBoxes(FormName, FieldName, CheckValue)
 
 {% block content %}
 <hr />
+<p>Welcome, {{user.username}}</p>
 
 <div id="search_results_meta">
 <p>Search mode was {{mode}}</p>
-<p>Search terms were {% for key in query %}{{key}}, {% endfor %}</p>
+<p>Search terms were {% for key in query_list %}{{key}}, {% endfor %}</p>
 <p>Search years are {% for year in year_list %}{{year}}, {% endfor %}</p>
 <p>Sources include {% for source in source_list %}{{source}}, {% endfor %}</p>
 <hr />
@@ -47,22 +48,12 @@ function SetAllCheckBoxes(FormName, FieldName, CheckValue)
 
 <div id="search_results">
 <h3>Results:</h3>
+{{results|length}} results
 <ul>
 {% for result in results %}
 	<li> {{result}} - 
 	{% for topic in result.topics.all %}
-		{% if topic.name in query %} <span class="highlight">{{topic.name}}</span>,
-		{% else %} {{topic.name}},
-		{% endif%}		
-	{% endfor %}
-	</li>
-{% endfor %}
-</ul>
-<ul>
-{% for result in filtered_results %}
-	<li> {{result}} - 
-	{% for topic in result.topics.all %}
-		{% if topic.name in query %} <span class="highlight">{{topic.name}}</span>,
+		{% if topic.name in query_list %} <span class="highlight">{{topic.name}}</span>,
 		{% else %} {{topic.name}},
 		{% endif%}		
 	{% endfor %}
@@ -92,7 +83,7 @@ function SetAllCheckBoxes(FormName, FieldName, CheckValue)
 			<li> <h3>{{subfield.name}}</h3>
 				{% for topic in subfield.topic_set.all %}	
 				<label for="{{topic.name}}">
-				{% if topic.name in query %}
+				{% if topic.name in query_list %}
 				<input id="{{topic.name}}" type=checkbox name="q" value="{{topic.name}}" checked="checked"/>
 				{% else %}
 				<input id="{{topic.name}}" type=checkbox name="q" value="{{topic.name}}"/>

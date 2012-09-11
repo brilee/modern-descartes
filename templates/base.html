@@ -10,10 +10,13 @@
 </head>
 
 <body>
-    <div id="sidebar">
-        {% block sidebar %}
+    <div id="menu">
+        {% block menu %}
         <ul>
+        	<li><a href="/">Home</a></li>
             <li><a href="/search/">Problem search</a></li>
+            <li><a href="/login">Log in</a></li>
+            <li><a href="/logout">Log out</a></li>
         </ul>
         {% endblock %}
     </div>
