@@ -11,7 +11,7 @@
 	<li> <strong>{{category.name}}</strong></li>
 	<ul>
 		{% for essay in category.essay_set.all %}
-		<li><a href="{{essay.get_absolute_url}}">{{essay.title}}</a> ({{essay.date_written}})</li>
+		<li><a href="{{essay.get_absolute_url}}">{{essay.title}}</a></li>
 		{% endfor %}
 	</ul>
 {% endfor %}
