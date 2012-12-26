@@ -3,4 +3,5 @@ settings.py
 local_settings.py
 *.json
 *~
+mydatabase.db
 

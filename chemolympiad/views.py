@@ -1,9 +1,11 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response
+from django.contrib.auth.decorators import permission_required
+from django.shortcuts import render
 from models import *
 
-@login_required
 def search(request):
+    if not request.user.has_perm('chemolympiad.can_search'):
+        return render(request, 'search_forbidden.html')
+
     # Generates fields for the search form
     all_subfields = Subfield.objects.all().order_by('name')
     all_sources = Competition.objects.all()
@@ -43,5 +45,5 @@ def search(request):
         if not results:
             errors.append('Search resulted in no hits')
 
-    return render_to_response('search.html', locals())
+    return render(request, 'search.html', locals())
         

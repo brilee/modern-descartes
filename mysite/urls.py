@@ -12,6 +12,10 @@ urlpatterns = patterns('',
     (r'^%s(?P<path>.*)$' % STATIC_URL[1:], 'django.views.static.serve',
         {'document_root': STATIC_ROOT}),
 
+    # Blog
+    (r'^essays/', include('essays.urls')),
+    (r'^blog/', 'essays.views.legacy_redirect'),
+
     # Search app
     (r'^search/', include('chemolympiad.urls')),
 

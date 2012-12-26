@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% load markup %}
+
+{% block title %}{{essay.title}}{% endblock %}
+
+{% block maintext %}
+<h2>{{essay.title}} </h2>
+<p> Originally posted {{essay.date_written}}</p>
+<hr />
+
+{{essay.content|markdown}}
+
+{% endblock maintext %}

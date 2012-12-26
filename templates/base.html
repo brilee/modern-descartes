@@ -1,28 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/static/style.css" />
-    <title>{% block title %}My amazing site{% endblock %}</title>
-<script type="text/javascript">
-{% block scripts %}{% endblock %}
-</script>
+<link href="/static/foundation/stylesheets/foundation.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="/static/foundation/stylesheets/app.css" rel="stylesheet" type="text/css" media="screen" />
 
+<title>{% block title %}Brian Lee's Website{% endblock %}</title>
+
+<script src="/static/foundation/javascripts/modernizr.foundation.js"></script>
+
+{% block scripts %}{% endblock %}
 </head>
 
 <body>
-    <div id="menu">
-        {% block menu %}
-        <ul>
-        	<li><a href="/">Home</a></li>
-            <li><a href="/search/">Problem search</a></li>
-            <li><a href="/login">Log in</a></li>
-            <li><a href="/logout">Log out</a></li>
-        </ul>
-        {% endblock %}
-    </div>
 
-    <div id="content">
-        {% block content %}{% endblock %}
-    </div>
+<div id="header" class="row">
+    {% block menu %}
+	<div class="twelve columns">
+    <ul class="nav-bar left">
+    	<li><a href="/">Home</a></li>
+    	<li><a href="/essays/">Essays</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="/search/">Problem search</a></li>
+        <li><a href="/logout/">Log out ({{user}})</a></li>
+		{% else %}
+        <li><a href="/login/">Log in</a></li>
+		{% endif %}
+    </ul>
+	</div>
+    {% endblock %}
+</div>
+
+{% block content %}
+
+<div class="row">
+	<div class="twelve columns">
+	<div class="panel">
+	{% block maintext %}
+	<p>Default maintext</p>		
+	{% endblock maintext %}
+	</div>
+	</div>	
+</div>
+{% endblock content %}    
+
+<!-- Javascript to be executed after page content loads -->
+<script src="/static/foundation/javascripts/jquery.js"></script>
+<script src="/static/foundation/javascripts/foundation.min.js"></script>
+
+<!-- Initialize JS plugins -->
+<script src="/static/foundation/javascripts/app.js"></script>
+
 </body>
 </html>

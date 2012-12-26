@@ -20,6 +20,8 @@ class Question(models.Model):
 
     class Meta:
         ordering = ['competition', '-year']
+        permissions = (('can_search', 'Can search the database'),
+                        )
 
 class Subfield(models.Model):
     name = models.CharField(max_length=30)

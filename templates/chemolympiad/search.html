@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block scripts %}
+<script>
 <!--
 function SetAllCheckBoxes(FormName, FieldName, CheckValue)
 {
@@ -17,63 +18,67 @@ function SetAllCheckBoxes(FormName, FieldName, CheckValue)
 			objCheckBoxes[i].checked = CheckValue;
 }
 // -->
+</script>
 {% endblock %}
 
 
-{% block title %}Search Page{% endblock %}
+{% block title %}Brian's Chemistry Problems Database{% endblock %}
 
 
-{% block content %}
-<hr />
-<p>Welcome, {{user.username}}</p>
-
-<div id="search_results_meta">
-<p>Search mode was {{mode}}</p>
-<p>Search terms were {% for key in query_list %}{{key}}, {% endfor %}</p>
-<p>Search years are {% for year in year_list %}{{year}}, {% endfor %}</p>
-<p>Sources include {% for source in source_list %}{{source}}, {% endfor %}</p>
-<hr />
-
-{% if errors %}
-<div id="errors">
-<ul>
-	{% for error in errors %}
-	<li>{{error}}</li>
-	{% endfor %}
-</ul>
+{% block maintext %}
+<div class="row">
+<div class="twelve columns">
+	<div class="panel">
+		<p>Search mode was {{mode}}</p>
+		<p>Search terms were {% for key in query_list %}{{key}}, {% endfor %}</p>
+		<p>Search years are {% for year in year_list %}{{year}}, {% endfor %}</p>
+		<p>Sources include {% for source in source_list %}{{source}}, {% endfor %}</p>
+	</div>
 </div>
-{% endif %}
 </div>
 
-
-<div id="search_results">
-<h3>Results:</h3>
-{{results|length}} results
-<ul>
-{% for result in results %}
-	<li> {{result}} - 
-	{% for topic in result.topics.all %}
-		{% if topic.name in query_list %} <span class="highlight">{{topic.name}}</span>,
-		{% else %} {{topic.name}},
-		{% endif%}		
-	{% endfor %}
-	</li>
-{% endfor %}
-</ul>
+<div class="row">
+<div class="twelve columns">
+	<div class="panel">
+		<h3>Results:</h3>
+		{% if errors %}
+		{% for error in errors %}
+		<span class="alert label">{{error}}</span>
+		{% endfor %}
+		<hr />
+		{% endif %}
+		{{results|length}} results
+		<ul>
+		{% for result in results %}
+			<li> {{result}} - 
+			{% for topic in result.topics.all %}
+				{% if topic.name in query_list %} <span class="highlight">{{topic.name}}</span>,
+				{% else %} {{topic.name}},
+				{% endif%}		
+			{% endfor %}
+			</li>
+		{% endfor %}
+		</ul>
+	</div>
 </div>
+</diV>
 
-<hr />
 
 <form method="GET" action="" name="ProblemSearch">
-<div id="search">
-	<div id="search_top">
+<div class="row">
+<div class="twelve columns">
+	<div class="panel">
 		<p>Select search mode:</p>
 		<input type=radio name="mode" value="OR" checked="True">OR
 		<input type=radio name="mode" value="AND">AND
 		<input type=submit value="Search That Shit, Yo" id="search_button">
 	</div>
-	<div id="search_options1">
-		
+</div>
+</div>
+
+<div class="row">
+<div class="six columns">
+	<div class="panel">
 		<p>Select your topics:</p>
 		<input type="button" onclick="SetAllCheckBoxes('ProblemSearch', 'q', true);" value="Select all topics">
 		<input type="button" onclick="SetAllCheckBoxes('ProblemSearch', 'q', false);" value="Deselect all topics">
@@ -90,14 +95,15 @@ function SetAllCheckBoxes(FormName, FieldName, CheckValue)
 				{% endif %}
 				{{topic.name}}
 				</label>
-				<br />
 				{% endfor %}
 			</li>
 		{% endfor %}
 		</ul>
 	</div>
-	
-	<div id="search_options2">
+</div>
+
+<div class="six columns">
+	<div class="panel">
 		<p>Select years:</p>
 		<input type="button" onclick="SetAllCheckBoxes('ProblemSearch', 'y', true);" value="Select all years">
 		<input type="button" onclick="SetAllCheckBoxes('ProblemSearch', 'y', false);" value="Deselect all years">
@@ -112,7 +118,7 @@ function SetAllCheckBoxes(FormName, FieldName, CheckValue)
 		<input id="{{year}}" type=checkbox name="y" value="{{year}}"/>
 		{% endif %}
 		{{year}}
-		</label><br />
+		</label>
 		{% endfor %}
 
 		<p>Select problem sources:</p>
@@ -126,14 +132,12 @@ function SetAllCheckBoxes(FormName, FieldName, CheckValue)
 		<input id="{{source.name}}" type=checkbox name="s" value="{{source.name}}"/>
 		{% endif %}
 		{{source.name}}
-		</label><br />
+		</label>
 		{% endfor %}
-	
 	</div>
 </div>
-
+</div>
 </form>
 
-
-{% endblock %}
+{% endblock maintext %}
 
