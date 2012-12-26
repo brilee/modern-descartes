@@ -5,7 +5,7 @@ The Flip Side of the Fundamental Attribution Error
 Fundamental attribution error (also known as correspondence bias) is the tendency to draw inferences about a person's unique and enduring dispositions from behaviors that can be entirely explained by the situations in which they occur.
     -- [Gilbert and Malone](http://www.wjh.harvard.edu/~dtg/Gilbert%20&%20Malone%20(CORRESPONDENCE%20BIAS).pdf)
 
-There are [many](http://lesswrong.com/lw/hz/correspondence_bias/) [excellent](http://en.wikipedia.org/wiki/Fundamental_attribution_error explanations of the fundamental attribution error, of which [this one](http://hpmor.com/chapter/5) is my favorite. Read all of them, I'll only give a short summary here: 
+There are [many](http://lesswrong.com/lw/hz/correspondence_bias/) [excellent](http://en.wikipedia.org/wiki/Fundamental_attribution_error) explanations of the fundamental attribution error, of which [this one](http://hpmor.com/chapter/5) is my favorite. Read all of them, I'll only give a short summary here: 
 
 FAE is the tendency to incorrectly explain situations by internal/enduring personal traits where situational context provides a better explanation. 
 

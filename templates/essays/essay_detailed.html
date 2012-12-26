@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
 
-{% load markup %}
-
 {% block title %}{{essay.title}}{% endblock %}
 
 {% block maintext %}
@@ -9,6 +7,6 @@
 <p> Originally posted {{essay.date_written}}</p>
 <hr />
 
-{{essay.content|markdown}}
+{{essay.content|safe}}
 
 {% endblock maintext %}

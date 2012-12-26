@@ -3,6 +3,7 @@ from mysite.settings import PROJECT_PATH
 from essays.models import Essay, Category
 import os, glob
 import datetime
+import markdown
 
 class Command(BaseCommand):
     args = 'None'
@@ -48,7 +49,7 @@ class Command(BaseCommand):
                         essay_date= f.readline().rstrip('\n')
                         self.stdout.write('%s\n' % essay_date)
                         f.readline()
-                        essay_content = unicode(f.read())
+                        essay_content = markdown.markdown(f.read())
                 essay_date = datetime.date(*map(int, essay_date.split('/')))
                 new_essay = Essay(title = essay_longname,
                                   slug = essay_shortname,
