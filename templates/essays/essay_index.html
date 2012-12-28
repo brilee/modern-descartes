@@ -6,16 +6,14 @@
 
 <h2> Essays </h2>
 
-<ul>
 {% for category in all_categories %}
-	<li> <strong>{{category.name}}</strong></li>
-	<ul>
+<h4>{{category.name}}</h4>
+	<ul class="disc">
 		{% for essay in category.essay_set.all %}
 		<li><a href="{{essay.get_absolute_url}}">{{essay.title}}</a></li>
 		{% endfor %}
 	</ul>
 {% endfor %}
-</ul>
 
 
 {% endblock maintext %}
