@@ -1,6 +1,6 @@
 from models import Essay, Category
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 def essay_index(request):
     all_categories = Category.objects.all()
@@ -12,5 +12,5 @@ def view_essay(request, slug):
 
 def legacy_redirect(request):
     requested_post_id = request.GET.get('q')
-    essay = Essay.objects.get(legacy_redirect=requested_post_id)
+    essay = get_object_or_404(Essay, legacy_redirect=requested_post_id)
     return redirect(essay)

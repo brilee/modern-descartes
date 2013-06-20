@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, include, url
-from django.shortcuts import redirect
 from mysite.settings import MEDIA_ROOT, MEDIA_URL, STATIC_ROOT, STATIC_URL
 
 from django.contrib import admin
@@ -15,7 +14,6 @@ urlpatterns = patterns('',
 
     # Blog
     (r'^essays/', include('essays.urls')),
-    (r'^blog/$', lambda request: redirect('/essays/')),
     (r'^blog/', 'essays.views.legacy_redirect'),
 
     # Search app
