@@ -2,7 +2,7 @@
 import os, socket
 
 
-if socket.gethostname() == 'Lees-MacBook-Pro':
+if socket.gethostname() == 'Lees-MacBook-Pro' or socket.gethostname() == 'Brians-MacBook-Air.local':
     DEBUG = True
 else:
     DEBUG = False
@@ -77,7 +77,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'django.contrib.markup',
     'south',
     'homepage',
     'chemolympiad',
