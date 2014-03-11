@@ -21,7 +21,7 @@ def essay_index(request):
     return render(request, 'essay_index.html', locals())
 
 def view_essay(request, slug):
-    essay = Essay.objects.get(slug=slug)
+    essay = get_object_or_404(Essay, slug=slug)
     return render(request, 'essay_detailed.html', locals())
 
 def legacy_redirect(request):
