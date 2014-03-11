@@ -9,7 +9,7 @@ This had me thinking about another base system: the Fibonacci base system, which
 
 Well, I had the idea: why not play Threes, except that instead of "overflowing" base 2 representation, you overflow the Fibonacci representation by combining two adjacent Fibonacci numbers?
 
-So I went and coded the game, which you can find on [Github](https://github.com/brilee/games/blob/master/fibs.py)
+So I went and coded the game, which you can find on [Github](https://github.com/brilee/games/blob/master/fibs.py). You can play it on the command line with <code>python fibs.py</code>
 
 A few lessons / observations about my code:
 
