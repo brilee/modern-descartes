@@ -13,7 +13,7 @@ class Essay(models.Model):
     content = models.TextField()
     category = models.ForeignKey(Category)
     date_written = models.DateField()
-    legacy_redirect = models.IntegerField(blank=True, null=True)
+    legacy_redirect = models.IntegerField(blank=True, null=True, unique=True)
 
     def __unicode__(self):
         return unicode(self.title)

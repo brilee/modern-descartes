@@ -9,16 +9,19 @@ This had me thinking about another base system: the Fibonacci base system, which
 
 Well, I had the idea: why not play Threes, except that instead of "overflowing" base 2 representation, you overflow the Fibonacci representation by combining two adjacent Fibonacci numbers?
 
-So I went and coded the game, which you can find on [Github](http://github.com/brilee/games/fibs.py)
+So I went and coded the game, which you can find on [Github](https://github.com/brilee/games/blob/master/fibs.py)
 
 A few lessons / observations about my code:
 
-* I used a functional style, where the board object was an immutable tuple of tuples. This lack of mutability meant that I could make virtual moves without worrying about having to backtrack a move.
+I used a functional style, where the board object was an immutable tuple of tuples. This lack of mutability meant that I could make virtual moves without worrying about having to backtrack a move.
+
     def is_valid(move, board): 
         return board == EMPTY_BOARD or move_dispatch[move](board, EMPTY) != board
     def check_loss(board): 
         return not any(is_valid(move, board) for move in move_dispatch)
-* I used a lot of precomputed globals. It occurs to me that precomputed globals are essentially cached function calls.
+
+I used a lot of precomputed globals. It occurs to me that precomputed globals are essentially cached function calls.
+
     # A list of fibonacci numbers. Should be impossible to get a piece bigger than this.
     FIBS = fibonacci_gen(3 * BOARD_SIZE**2)
     # scoring at the end: F_n yields 2**n points.
@@ -28,7 +31,9 @@ A few lessons / observations about my code:
     # normal case: F_{n-2} + F_{n-1} = F_n
     COMBOS.update({(FIBS[i], FIBS[i+1]) : FIBS[i+2] for i in range(len(FIBS) - 2)})
     COMBOS.update({(FIBS[i+1], FIBS[i]) : FIBS[i+2] for i in range(len(FIBS) - 2)})
-* Rotating and un-rotating a board meant that I only had to write one copy of move_left(board, next_piece), and fewer places for me to introduce bugs. Again, using a functional style meant that I could freely rotate the board while not accidentally rotating other existant copies of the board.
+
+Rotating and un-rotating a board meant that I only had to write one copy of move_left(board, next_piece), and fewer places for me to introduce bugs. Again, using a functional style meant that I could freely rotate the board while not accidentally rotating other existant copies of the board.
+
     def rotateCW(board): return tuple(map(tuple, zip(*board[::-1])))
     def rotate180(board): return rotateCW(rotateCW(board))
     def rotateCCW(board): return rotateCW(rotateCW(rotateCW(board)))
@@ -41,14 +46,18 @@ A few lessons / observations about my code:
         return rotateCW(move_left(rotateCCW(board), next_piece))
     def move_down(board, next_piece):
         return rotateCCW(move_left(rotateCW(board), next_piece))
-* I learned a bunch about python string templating / formatting. Apparently python has a very extensive API for printing fixed width columns that are left-adjusted, etc., or maybe you want to convert ints to floats with 2 decimal points, etc...
-* Writing an iterator over the board made it super convenient to score the board at the end and to figure out the largest element in the board.
+
+I learned a bunch about python string templating / formatting. Apparently python has a very extensive API for printing fixed width columns that are left-adjusted, etc., or maybe you want to convert ints to floats with 2 decimal points, etc...
+
+Writing an iterator over the board made it super convenient to score the board at the end and to figure out the largest element in the board.
+
     def board_iter(board):
         'Iterates over nonempty elements of the board'
         return (item for row in board for item in row if item != EMPTY)
     def score_board(board):
         return sum(SCORES[num] for num in board_iter(board))
-* Python's terminal interface is apparently buffered, so there's no getchar() like in C. Well, there is, but stdin only receives all the characters at once when you hit enter. I found some voodoo code online that "fixes" the issue at the cost of also breaking whatever signal handler exists for ctrl+c. Maybe this is why git / manpages / other interactive terminal programs require the manual 'q' for escaping, instead of letting ctrl+C work.
+
+Python's terminal interface is apparently buffered, so there's no getchar() like in C. Well, there is, but stdin only receives all the characters at once when you hit enter. I found some voodoo code online that "fixes" the issue at the cost of also breaking whatever signal handler exists for ctrl+c. Maybe this is why git / manpages / other interactive terminal programs require the manual 'q' for escaping, instead of letting ctrl+C work.
 
 
 
