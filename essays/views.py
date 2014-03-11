@@ -14,7 +14,7 @@ class LatestEssaysRSS(Feed):
         return item.title
 
     def item_description(self, item):
-        return item.content[:200]
+        return item.content
 
 def essay_index(request):
     all_categories = Category.objects.all()
