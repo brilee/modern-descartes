@@ -28,5 +28,8 @@ def legacy_redirect(request):
     if 'feed' in request.GET:
         return redirect('/essays/rss/')
     requested_post_id = request.GET.get('q')
-    essay = get_object_or_404(Essay, legacy_redirect=requested_post_id)
+    try:
+        essay = get_object_or_404(Essay, legacy_redirect=requested_post_id)
+    except:
+        return redirect('/essays/')
     return redirect(essay)
