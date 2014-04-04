@@ -19,6 +19,9 @@ urlpatterns = patterns('',
     # Search app
     (r'^search/', include('chemolympiad.urls')),
 
+    # Flashcard app
+    (r'^flashcards/', include('flashcards.urls')),
+
     # Login / logout
     (r'^login/$', 'django.contrib.auth.views.login'),                
     (r'^logout/$', 'homepage.views.logout_page'),

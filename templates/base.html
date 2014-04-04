@@ -9,6 +9,7 @@
 <script src="/static/foundation/javascripts/modernizr.foundation.js"></script>
 
 {% block scripts %}{% endblock %}
+{% block templates %}{% endblock %}
 </head>
 
 <body>
@@ -21,6 +22,7 @@
     	<li><a href="/essays/">Essays</a></li>
         {% if user.is_authenticated %}
         <li><a href="/search/">Problem search</a></li>
+        <li><a href="/flashcards/">Flashcards</a></li>
         <li><a href="/logout/">Log out ({{user}})</a></li>
 		{% else %}
         <li><a href="/login/">Log in</a></li>
@@ -42,6 +44,9 @@
 	</div>	
 </div>
 {% endblock content %}    
+
+{% block footer %}
+{% endblock footer %}
 
 <!-- Javascript to be executed after page content loads -->
 <script src="/static/foundation/javascripts/jquery.js"></script>
