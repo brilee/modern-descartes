@@ -6,7 +6,10 @@ from .models import UserFlashCard, FlashCard
 from django.core.exceptions import ObjectDoesNotExist
 import json
 
+
 def home(request):
+    if not request.user.has_perm('flashcards.can_play'):
+        return render(request, 'flashcard_forbidden.html')
     return render(request, 'flashcard_home.html')
 
 def admin_index(request):

@@ -2,6 +2,7 @@
 
 {% block scripts %}
 <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.0/mustache.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" ></script>
 {% endblock scripts %}
 
 {% block templates %}
@@ -14,7 +15,9 @@
     <li onclick="submit('{{username}}', '{{word}}', 0)">Uhoh... dunno?..</li>
 </ul>
 
-<p display="hidden">Definition: {{definition}}</p>
+<p id="message"></p>
+
+<p id="definition" style="display:none;">Definition: {{definition}}</p>
 
 </script>
 {% endverbatim %}
@@ -22,7 +25,8 @@
 
 
 
-{% block content %}
+{% block maintext %}
+<span id="username" style="display:none">{{user.username}}</span>
 <p> Welcome to PrepScholars Flashcard app!</p>
 
 <a onclick="load_flashcard()">Get a new flashcard</a>
@@ -58,7 +62,13 @@ function submit(user, word, correct) {
         },
         function(data) {
             $("#submit_buttons").remove();
-            $("#definition").show()
+            $("#definition").css("display", "inline");
+            if (correct == 1) {
+                $("#message").text("Congratulations!");
+            }
+            else {
+                $("#message").text("Aw. Better study this card some more");
+            }
         }
     );
 }
