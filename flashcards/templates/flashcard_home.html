@@ -29,6 +29,10 @@
 <span id="username" style="display:none">{{user.username}}</span>
 <p> Welcome to PrepScholars Flashcard app!</p>
 
+{% if perms.flashcards.admin %}
+<p> You are an admin. <a href="{% url 'admin_index' %}">Check out other users</a></p>
+{% endif %}
+
 <a onclick="load_flashcard()">Get a new flashcard</a>
 
 <div id="actual_flashcard" style="border-style:solid; border-width:1px; width:400px;">
