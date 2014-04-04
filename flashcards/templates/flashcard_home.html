@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+
+{% block templates %}
+{% verbatim %}
+<script id="flashcard_template" type="x-tmpl-mustache">
+<h3><b>{{word}}</b></h5>
+
+<ul id="submit_buttons">
+    <li onclick="submit('{{username}}', '{{word}}', 1)">I know this word!</li>
+    <li onclick="submit('{{username}}', '{{word}}', 0)">Uhoh... dunno?..</li>
+</ul>
+
+<p display="hidden">Definition: {{definition}}</p>
+
+</script>
+{% endverbatim %}
+{% endblock %}
+
+
+
+{% block content %}
+<p> Welcome to PrepScholars Flashcard app!</p>
+
+<a onclick="load_flashcard()">Get a new flashcard</a>
+
+<div id="actual_flashcard" style="border-style:solid; border-width:1px; width:400px;">
+
+</div>
+
+
+{% endblock %}
+
+
+{% block footer %}
+<script>
+var username = $("#username").text()
+
+function load_flashcard(){
+    $.get('/flashcards/getcard/?username=' + username, function(raw_data){
+        var data = JSON.parse(raw_data);
+        data['username'] = username;
+        var template = $("#flashcard_template").html();
+        var rendered = Mustache.render(template, data);
+        $("#actual_flashcard").html(rendered);
+    });
+}
+
+function submit(user, word, correct) {
+    $.post(
+        '/flashcards/submit/', 
+        {'username': user, 
+         'word': word, 
+         'correct': correct
+        },
+        function(data) {
+            $("#submit_buttons").remove();
+            $("#definition").show()
+        }
+    );
+}
+</script>
+
+{% endblock %}

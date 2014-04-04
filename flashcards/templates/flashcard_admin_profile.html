@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p>Showing flashcard profile for {{user.username}}</p>
+{% if flashcards %}
+<table>
+<tr>
+    <th>Word</th>
+    <th>Box num</th>
+    <th>Lifetime incorrect</th>
+</tr>
+    {% for ufc in flashcards %}
+<tr>
+    <td>{{ufc.flashcard.word}}</td>
+    <th>{{ufc.box}}</th>
+    <th>{{ufc.got_wrong}}</th>
+</tr>
+    {% endfor %}
+</table>
+
+{% else %}
+<p>This user has not yet used Flashcards</p>
+{% endif %}
+
+{% if to_review %}
+<p>{{user.username}} is due to review the following words:</p>
+<ul>
+    {% for word in to_review %}
+    <li>{{word}}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Wow! {{user.username}} did like every flashcard in the database!</p>
+{% endif %}
+{% endblock %}

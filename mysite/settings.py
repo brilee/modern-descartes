@@ -57,6 +57,7 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, 'templates/chemolympiad'),
     os.path.join(PROJECT_PATH, 'templates/homepage'),
     os.path.join(PROJECT_PATH, 'templates/registration'),
+    os.path.join(PROJECT_PATH, 'flashcards/templates'),
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -80,7 +81,8 @@ INSTALLED_APPS = (
     'south',
     'homepage',
     'chemolympiad',
-    'essays',    
+    'essays',
+    'flashcards',
 )
 
 DATABASES = {

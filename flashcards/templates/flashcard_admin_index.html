@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<p>Click on a user to see their progress</p>
+<ul>
+{% for user in flashcard_users %}
+    <li><a href={% url 'admin_profile' user.username %}>{{user.username}}</a></li>
+{% empty %}
+    <li> No users have set up profiles yet </p>
+{% endfor %}
+</ul>
+
+{% endblock %}
