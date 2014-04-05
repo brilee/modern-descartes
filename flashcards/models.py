@@ -85,7 +85,7 @@ class UserFlashCard(models.Model):
             return False
         elif self.box == 0:
             return True
-        elif self.box == 11:
+        elif self.box >= 11:
             return False
         else:
             return timezone.now() - self.last_shown > intervals[self.box]
