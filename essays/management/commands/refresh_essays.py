@@ -4,6 +4,7 @@ from essays.models import Essay, Category
 import os, glob
 import datetime
 import markdown
+import itertools
 
 class Command(BaseCommand):
     args = 'None'
@@ -31,7 +32,10 @@ class Command(BaseCommand):
             new_category = Category(name=c)
             new_category.save()
             
-            for essay in glob.glob('*.txt'):
+            for essay in itertools.chain(
+                    glob.glob('*.txt'),
+                    glob.glob('*.md'),
+                    glob.glob('*.html')):
                 (essay_shortname, extension) = os.path.splitext(essay)
                 self.stdout.write('%s\n' % essay_shortname)
 
@@ -49,7 +53,10 @@ class Command(BaseCommand):
                         essay_date= f.readline().rstrip('\n')
                         self.stdout.write('%s\n' % essay_date)
                         f.readline()
-                        essay_content = markdown.markdown(f.read())
+                        if extension in (".txt", ".md"):
+                            essay_content = markdown.markdown(f.read())
+                        elif extension in (".html",):
+                            essay_content = f.read()
                 essay_date = datetime.date(*map(int, essay_date.split('/')))
                 new_essay = Essay(title = essay_longname,
                                   slug = essay_shortname,
