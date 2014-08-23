@@ -1,54 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link href="/static/foundation/stylesheets/foundation.css" rel="stylesheet" type="text/css" media="screen" />
-<link href="/static/foundation/stylesheets/app.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+<link rel="stylesheet" href="/static/css/custom.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>{% block title %}Brian Lee's Website{% endblock %}</title>
-
-<script src="/static/foundation/javascripts/modernizr.foundation.js"></script>
 
 {% block scripts %}{% endblock %}
 </head>
 
 <body>
 
-<div id="header" class="row">
-    {% block menu %}
-	<div class="twelve columns">
-    <ul class="nav-bar left">
-    	<li><a href="/">Home</a></li>
-    	<li><a href="/essays/">Essays</a></li>
-        {% if user.is_authenticated %}
-        <li><a href="/search/">Problem search</a></li>
-        <li><a href="/logout/">Log out ({{user}})</a></li>
-		{% else %}
-        <li><a href="/login/">Log in</a></li>
-		{% endif %}
-    </ul>
-	</div>
-    {% endblock %}
+<div id="header" class="pure-menu pure-menu-open pure-menu-horizontal">
+{% block menu %}
+<ul>
+	<li><a href="/">Home</a></li>
+	<li><a href="/essays/">Essays</a></li>
+    {% if user.is_authenticated %}
+    <li><a href="/search/">Problem search</a></li>
+    <li><a href="/logout/">Log out ({{user}})</a></li>
+	{% else %}
+    <li><a href="/login/">Log in</a></li>
+	{% endif %}
+</ul>
+{% endblock %}
 </div>
 
+<div id="content">
 {% block content %}
 
-<div class="row">
-	<div class="twelve columns">
-	<div class="panel">
+<div class="pure-g">
+    <div class="pure-u-1">
 	{% block maintext %}
 	<p>Default maintext</p>		
 	{% endblock maintext %}
-	</div>
-	</div>	
+    </div>
 </div>
 {% endblock content %}    
-
-<!-- Javascript to be executed after page content loads -->
-<script src="/static/foundation/javascripts/jquery.js"></script>
-<script src="/static/foundation/javascripts/foundation.min.js"></script>
-
-<!-- Initialize JS plugins -->
-<script src="/static/foundation/javascripts/app.js"></script>
-
+</div>
 </body>
 </html>

@@ -7,7 +7,7 @@
 <p>Log in:</p>
 
 {% if form.errors %}
-<span class="alert label">Either your username or password were incorrect. Please try again.</span>
+<span class="alert">Either your username or password were incorrect. Please try again.</span>
 {% endif %}
 
 <form method="post" action=".">{% csrf_token %}
