@@ -11,13 +11,13 @@ But this is not the only use for a request ID.
 
 Having request IDs is necessary to prevent duplicate request submissions. Have you ever seen a website warn you not to hit the "Purchase" or "Submit Order" button more than once? That's indicative of a task queue that doesn't use request IDs. If there was a request ID submitted with the button press, you could hit the button all day long, and the task manager responsible for maintaining the backlog/history of purchase orders would theoretically be able to recognize duplicate orders and ensure that only one task is enqueued.
 
-Perhaps in an ideal world with perfect customers, you would think that the extra work of implementing request IDs is unnecessary. But eager customers are not the only source of duplicate submissions. Network connections can be unreliable, and if you were to dig down to the TCP level of communications, you would see essentially this block of code:
+Perhaps in an ideal world with perfect customers, you would think that the extra work of implementing request IDs is unnecessary. But eager customers are not the only source of duplicate submissions. Network connections can be unreliable, and programmers will often write their own retry logic around actions, which at its core looks essentially like this:
 
-    while not succeeded(send_packet(packet)) and retries < MAX_RETRIES and (current_time() - start_time) < CONNECTION_TIMEOUT:
+    while not succeeded(try_action()) and retries < MAX_RETRIES and (current_time() - start_time) < CONNECTION_TIMEOUT:
         retries += 1
         sleep(BASE_RETRY_WAIT_TIME * 2**retries)```
 
-or in plain words, "retry with successively longer waiting times until either the packet send succeeds, we've tried too many times, or we've been trying for too long". 
+or in plain words, "try again with successively longer waiting times until either the action succeeds, we've tried too many times, or we've been trying for too long".
 
 It's quite possible that only one half of your network connection is broken, leading your computer to say, "Well... I sent a packet, but I never heard back confirming receipt of the packet. Let's try sending it again". This can lead to multiple submissions by no fault of the customer. Request IDs solve this problem.
 
