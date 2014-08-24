@@ -1,0 +1,5 @@
+To push a new essay:
+1) write the essay, put it under appropriate folder
+2) commit to repo, push repo to github
+3) pull repo to server; compile the essays with ./manage.py refresh_essays
+4) you're done! yay.
