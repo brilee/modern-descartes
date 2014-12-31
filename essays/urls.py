@@ -4,6 +4,6 @@ from essays.views import LatestEssaysRSS
 urlpatterns = patterns('essays.views',
     (r'^$', 'essay_index'),
     (r'^rss/$', LatestEssaysRSS()),
-    (r'^([A-Za-z_-]{1,100})$', 'view_essay'),
+    (r'^([A-Za-z0-9_-]{1,100})$', 'view_essay'),
 )
 
