@@ -19,9 +19,6 @@
 	<li><a href="/essays/">Essays</a></li>
     {% if user.is_authenticated %}
     <li><a href="/search/">Problem search</a></li>
-    <li><a href="/logout/">Log out ({{user}})</a></li>
-	{% else %}
-    <li><a href="/login/">Log in</a></li>
 	{% endif %}
 </ul>
 {% endblock %}
