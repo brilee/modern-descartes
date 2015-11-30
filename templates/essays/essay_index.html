@@ -6,6 +6,16 @@
 
 <h2> Essays </h2>
 
+<hr />
+<h3>...by date</h3>
+<ul>
+{% for essay in all_essays %}
+    <li>{{essay.date_written|date:"Y/m/d"}}&nbsp;|&nbsp; <a href="{{essay.get_absolute_url}}">{{essay.title}}</a></li>
+{% endfor %}
+</ul>
+
+<hr />
+<h3>...by category</h3>
 {% for category in all_categories %}
 <h4>{{category.name}}</h4>
 	<ul>

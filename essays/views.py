@@ -18,6 +18,7 @@ class LatestEssaysRSS(Feed):
 
 def essay_index(request):
     all_categories = Category.objects.all()
+    all_essays = Essay.objects.all()
     return render(request, 'essay_index.html', locals())
 
 def view_essay(request, slug):
