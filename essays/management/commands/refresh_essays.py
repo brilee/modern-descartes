@@ -12,13 +12,6 @@ class Command(BaseCommand):
             in database.'''
 
     def handle(self, *args, **options):
-        proceed = ''
-        while proceed not in ('Y', 'N'):
-            proceed = raw_input('This will clear existing Essays, Categories, and LegacyRedirects before recompiling them. Proceed? (Y/N)')
-
-        if proceed == 'N':
-            raise CommandError('Aborting')
-
         Essay.objects.all().delete()
         Category.objects.all().delete()
         
@@ -37,21 +30,21 @@ class Command(BaseCommand):
                     glob.glob('*.md'),
                     glob.glob('*.html')):
                 (essay_shortname, extension) = os.path.splitext(essay)
-                self.stdout.write('%s\n' % essay_shortname)
+                #self.stdout.write('%s\n' % essay_shortname)
 
                 with open(essay) as f:
                     first_line = f.readline().rstrip('\n')
                     try:
                         legacy_id = int(first_line)
                         essay_longname = f.readline().rstrip('\n')
-                        self.stdout.write('%s\n' % legacy_id)
+                        #self.stdout.write('%s\n' % legacy_id)
                         self.stdout.write('%s\n' % essay_longname)
                     except ValueError:
                         legacy_id = None
                         essay_longname = first_line
                     finally:
                         essay_date= f.readline().rstrip('\n')
-                        self.stdout.write('%s\n' % essay_date)
+                        #self.stdout.write('%s\n' % essay_date)
                         f.readline()
                         if extension in (".txt", ".md"):
                             essay_content = markdown.markdown(f.read())
