@@ -33,7 +33,7 @@ How does this M3 shift work? First, there is one common tone in each of the tran
 
 Less well known is that the M3 shift also works with minor chords: 
 
-![minor chord cycle](/static/minor_cycle.png)
+![minor chord cycle](/static/minor_cycle.png minor chord cycle)
 
 The principles are much the same, but when used on minor chords, the tension seems to build with each shift. Here it is in action: [Ravel's Piano Concerto in G, 2nd mvmt; m3 shift from Em/B -> G#m/B occurs at 6:44](http://www.youtube.com/watch?v=ud6nbX5XKVk)
 
