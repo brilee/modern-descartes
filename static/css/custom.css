@@ -20,3 +20,7 @@
 .highlight{
     background: #ffff99;
 }
+
+pre {
+    margin-left: 2em;
+}
