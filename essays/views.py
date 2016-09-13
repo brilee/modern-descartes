@@ -27,7 +27,7 @@ def view_essay(request, slug):
 
 def legacy_redirect(request):
     if 'feed' in request.GET:
-        return redirect('/essays/rss/')
+        return redirect('/essays/rss.xml')
     requested_post_id = request.GET.get('q')
     try:
         essay = get_object_or_404(Essay, legacy_redirect=requested_post_id)
