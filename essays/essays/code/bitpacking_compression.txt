@@ -245,5 +245,5 @@ Conclusions
 - There are a lot of compression algorithms available. The gzip family is readily available, and you can tune the balance between compression and speed.
 - If you know the structure of your data, you can easily do a better and faster job of compressing than a generic compression algorithm.
 
-All supporting code / flamegraphs can be found on [a git branch](https://github.com/brilee/MuGo/compare/compression_experiments).
+All supporting code can be found on [a git branch](https://github.com/brilee/MuGo/compare/compression_experiments).
 
