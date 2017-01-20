@@ -49,7 +49,7 @@ Theoretically speaking, this algorithm is ridiculously efficient. To keep track 
 
 Practically speaking, this is a very noisy estimate. You might have seen an unusually large or small number of leading zeros, and the resulting estimate would be off by a factor of two for each extra or missing leading zero. 
 
-This is a plot of probability of having x leading zeros, with 1024 distinct items. You can see that the probability peaks at around x = 10.5, as expected - but the distribution is quite wide, with x = 9, 11 or 12 being at least half as likely as x = 10.5. (The distribution peaks 0.5 units higher than expected, so this implies that \\(2^k\\) will overshoot by a factor of \\(2^{0.5}\\), or about 0.7. This shows up as a correction factor later.)
+This is a plot of probability of having x leading zeros, with 1024 distinct items. You can see that the probability peaks at around x = 10, as expected - but the distribution is quite wide, with x = 9, 11 or 12 being at least half as likely as x = 10. (The distribution peaks 0.5 units higher than expected, so this implies that \\(2^k\\) will overshoot by a factor of \\(2^{0.5}\\), or about 1.4. This shows up as a correction factor later.)
 
 <img src="/static/loglog_maxzeros.png" title="LogLog max leading zero distribution" style="display: block; margin: 0 auto; max-width: 100%"/>
 
