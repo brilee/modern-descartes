@@ -38,11 +38,11 @@ class Command(BaseCommand):
                         legacy_id = int(first_line)
                         essay_longname = f.readline().rstrip('\n')
                         #self.stdout.write('%s\n' % legacy_id)
-                        self.stdout.write('%s\n' % essay_longname)
                     except ValueError:
                         legacy_id = None
                         essay_longname = first_line
                     finally:
+                        self.stdout.write('%s\n' % essay_longname)
                         essay_date= f.readline().rstrip('\n')
                         #self.stdout.write('%s\n' % essay_date)
                         f.readline()
