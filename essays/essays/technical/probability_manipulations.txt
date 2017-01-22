@@ -67,7 +67,7 @@ $$\\frac{f(t+h) - f(t)}{h} = -f(t)\\frac{F(h) - F(0)}{h}$$
 
 Since this equation is valid for all positive \\(h\\), we take the limit as \\(h\\) goes to zero, and substitute the appropriate derivatives, yielding \\(f'(t) = -f(t)f(0)\\). Since \\(f(0)\\) is a constant, we'll call that constant \\(\\lambda\\) and the only function \\(f(t)\\) satisfying this differential equation is \\(f(t) = \\lambda e^{-\\lambda x}\\).
 
-This is called the [exponential distribution](https://en.wikipedia.org/wiki/Exponential_distribution). The above derivation shows that the exponential distribution is the _only_ distribution satisfying the memoryless property.
+This is called the [exponential distribution](https://en.wikipedia.org/wiki/Exponential_distribution). Lambda is a parameter that specifies the rate of events. The above derivation shows that the exponential distribution is the _only_ distribution satisfying the memoryless property.
 
 Deriving the Poisson Distribution
 ---------------------------------
@@ -89,15 +89,15 @@ P(1) &= \\int_0^1 \\lambda e^{-\\lambda x}\\left(\\int_{1-x}^\infty \\lambda e^{
 \\end{align}
 $$ 
 
-More generally, if we had some PDF describing the wait time for k events, then we could use the same strategy - sum over all combination of events x, 1 - x, where x is the time until k events and there is no event in the remaining 1 - x time. As it turns out, this is pretty easy to do: take the convolution of the exponential distribution with itself, (k - 1) times. The first convolution gives you the time to 2 events, the second convolution gives you the time to 3 events, and so on. These repeated convolutions give rise to the [Erlang distribution](https://en.wikipedia.org/wiki/Erlang_distribution). The repeated convolutions aren't that hard to calculate so I'll leave them as an exercise for the reader :)
+More generally, if we had some PDF describing the wait time for k events, then we could use the same strategy - sum over all combination of events x, 1 - x, where x is the time until k events and there is no event in the remaining 1 - x time. As it turns out, deducing the PDF describing wait time to k events is pretty easy to do: take the convolution of the exponential distribution with itself, (k - 1) times. The first convolution gives you the time to 2 events, the second convolution gives you the time to 3 events, and so on. These repeated convolutions give rise to the [Erlang distribution](https://en.wikipedia.org/wiki/Erlang_distribution). The repeated convolutions aren't that hard to calculate so I'll leave them as an exercise for the reader :)
 
-$$\\textrm{Exp * Exp * Exp (k times)} = \\frac{\\lambda^k x^{k-1}}{(k-1)! e^{\\lambda x}}$$
+$$\\textrm{Exp * Exp * Exp (k times)} = \\frac{\\lambda^k x^{k-1}}{(k-1)!}e^{-\\lambda x}$$
 
 Substituting the Erlang distribution into our calculation above, we have:
 
 $$
 \\begin{align}
-P(k) &= \\int_0^1 \\frac{\\lambda^k x^{k-1}}{(k-1)! e^{\\lambda x}} \\left(\\int_{1-x}^\infty \\lambda e^{-\\lambda t}dt\\right) dx\\\\
+P(k) &= \\int_0^1 \\frac{\\lambda^k x^{k-1}}{(k-1)!}e^{-\\lambda x} \\left(\\int_{1-x}^\infty \\lambda e^{-\\lambda t}dt\\right) dx\\\\
 &= \\int_0^1 \\frac{\\lambda^k x^{k-1}}{(k-1)!}e^{-\\lambda x} e^{-\\lambda (1-x)} dx\\\\
 &= \\frac{\\lambda^k}{(k-1)!e^\\lambda} \\int_0^1 x^{k-1} dx\\\\
 &= \\frac{\\lambda^k}{k!e^\\lambda}\\\\
