@@ -104,7 +104,7 @@ I left OpenAI's office with the impression that after reading the entirety of [G
 
 I ran into Ian Goodfellow later and he told me that those introductory chapters, although dense, are probably the most important chapters because they will stay relevant for decades to come, while the other chapters will be outdated in a few years' time. So I'll just have to slog through them.
 
-Along those lines, I think the most important advice I can give to other people is to not shy away from the math. In many cases, if you understand the basic statistical, numerical computation, and probabalistic ideas, the applications to ML are one simple step away. 
+Along those lines, I think the most important advice I can give to other people is to not shy away from the math. In many cases, if you understand the basic statistical, numerical computation, and probabilistic ideas, the applications to ML are one simple step away.
 
 
 
