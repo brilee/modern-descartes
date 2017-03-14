@@ -32,7 +32,7 @@ class Command(BaseCommand):
                 (essay_shortname, extension) = os.path.splitext(essay)
                 #self.stdout.write('%s\n' % essay_shortname)
 
-                with open(essay) as f:
+                with open(essay, 'rb') as f:
                     first_line = f.readline().rstrip('\n')
                     try:
                         legacy_id = int(first_line)
@@ -47,9 +47,9 @@ class Command(BaseCommand):
                         #self.stdout.write('%s\n' % essay_date)
                         f.readline()
                         if extension in (".txt", ".md"):
-                            essay_content = markdown.markdown(f.read())
+                            essay_content = markdown.markdown(f.read().decode('utf8'))
                         elif extension in (".html",):
-                            essay_content = f.read()
+                            essay_content = f.read().decode('utf8')
                 essay_date = datetime.date(*map(int, essay_date.split('/')))
                 new_essay = Essay(title = essay_longname,
                                   slug = essay_shortname,
