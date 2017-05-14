@@ -22,7 +22,7 @@ Linear Counting
 
 Sets are inefficient because of their strict correctness guarantees. When two items hash to the same location within the hash table, you'd need some way to decide whether the two items were actually the same, or merely a hash collision. This typically means storing the original item and performing a full equality comparison whenever a hash collision occurs.
 
-Linear Counting instead embraces hash collisions, and doesn't bother storing the original items. Instead, it allocates a hash table with capacity \\(B \\approx N\\) bits, and initializes the bits to 0. When an item comes in, it's hashed, and the corresponding bit in the table is flipped to 1. By relying on hashes, deduplication of identical items is naturally handled. Linear Counting is still \\(O(N)\\) in both space and time, but is about 100 times more efficient than the set solution, using only 1 bit per slot, while the set solution uses 64 bits for a pointer, plus the size of the item itself.
+Linear Counting instead embraces hash collisions, and doesn't bother storing the original items. Instead, it allocates a hash table with capacity B bits, where B is the same scale as N, and initializes the bits to 0. When an item comes in, it's hashed, and the corresponding bit in the table is flipped to 1. By relying on hashes, deduplication of identical items is naturally handled. Linear Counting is still \\(O(N)\\) in both space and time, but is about 100 times more efficient than the set solution, using only 1 bit per slot, while the set solution uses 64 bits for a pointer, plus the size of the item itself.
 
 When \\(N \\ll B\\), then collisions are infrequent, and the number of bits set to 1 is a pretty good estimate of the cardinality.
 
